@@ -25,7 +25,7 @@ const AdminDashboard = () => {
       })
       .catch((err) => {
         console.error('Gagal ambil data pegawai', err);
-        setError('Gagal ambil data pegawai. Token mungkin tidak valid atau expired.');
+        setError('❌ Gagal ambil data pegawai. Token mungkin tidak valid atau expired.');
       });
   }, []);
 
