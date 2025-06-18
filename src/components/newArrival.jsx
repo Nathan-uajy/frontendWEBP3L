@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner, Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ProductCard from './productCard';
@@ -7,6 +7,8 @@ import ProductCard from './productCard';
 const NewArrivalSection = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +24,22 @@ const NewArrivalSection = () => {
   }, []);
 
   const handleCardClick = (product) => {
-    navigate(`/detailProduk/${product.idProduk}`); // Pastikan idProduk sesuai dengan key dari backend
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedProduct(null);
+  };
+
+  const checkGaransi = (garansiDate) => {
+    if (!garansiDate) return 'Tidak ada garansi';
+
+    const today = new Date();
+    const garansi = new Date(garansiDate);
+
+    return today <= garansi ? 'Masih Bergaransi' : 'Tidak Bergaransi';
   };
 
   return (
@@ -57,6 +74,41 @@ const NewArrivalSection = () => {
             ))}
           </Row>
         )}
+        {/* Modal untuk detail produk */}
+        <Modal show={showModal} onHide={handleClose} centered>
+          {selectedProduct && (
+            <>
+              <Modal.Header closeButton>
+                <Modal.Title>{selectedProduct.namaProduk}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {selectedProduct.gambar_url && (
+                  <img
+                    src={selectedProduct.gambar_url}
+                    alt={selectedProduct.namaProduk}
+                    className="img-fluid mb-3"
+                  />
+                )}
+                <p><strong>Harga:</strong> Rp {selectedProduct.harga.toLocaleString('id-ID')}</p>
+                <p><strong>Deskripsi:</strong> {selectedProduct.deskripsi}</p>
+                <p><strong>Kategori:</strong> {selectedProduct.kategori}</p>
+                <p><strong>Status Produk:</strong> {selectedProduct.status}</p>
+                <p><strong>Status Garansi:</strong> {checkGaransi(selectedProduct.garansi)}</p>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="primary"
+                  onClick={() => navigate(`/detailProduk/${selectedProduct.idProduk}`)}
+                >
+                  Lihat Detail
+                </Button>
+                <Button variant="secondary" onClick={handleClose}>
+                  Tutup
+                </Button>
+              </Modal.Footer>
+            </>
+          )}
+        </Modal>
       </Container>
     </section>
   );

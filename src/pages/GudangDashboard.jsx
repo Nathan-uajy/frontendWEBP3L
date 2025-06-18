@@ -1,4 +1,4 @@
-    import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
     import axios from 'axios';
     import {
     Container, Row, Col, Nav, Modal, Toast, ToastContainer
@@ -72,8 +72,8 @@
 
     const handleShowDetail = async (barang) => {
         const endpoint = selectedMenu === 'barang-diambil'
-        ? `http://localhost:8000/api/barang-diambil/${barang.idProduk}`
-        : `http://localhost:8000/api/barang/${barang.idTransaksi}`;
+        ? 'http://localhost:8000/api/barang-diambil/${barang.idProduk}'
+        : 'http://localhost:8000/api/barang/${barang.idTransaksi}';
         try {
         const res = await axios.get(endpoint, { headers });
         setSelectedItem(res.data);
@@ -149,6 +149,9 @@
                 {renderMenuItem('nota-pembeli', '🧾', 'Cetak Nota (Pembeli)')}
                 {renderMenuItem('jadwal', '📅', 'Lihat Jadwal')}
                 {renderMenuItem('penitip-besar', '💰', 'Penitip Saldo Besar')}
+                {renderMenuItem('daftar-barang', '📃', 'Daftar Barang')}
+                {renderMenuItem('tambah-barang', '➕', 'Tambah Barang')}
+                {renderMenuItem('nota-penitip', '🖨', 'Nota Penitipan')}
             </Nav>
             </Col>
             <Col md={10} className="p-4 bg-light min-vh-100">
