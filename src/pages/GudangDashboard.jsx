@@ -50,13 +50,6 @@
         axios.get(endpoint, { headers })
             .then(res => setBarangs(Array.isArray(res.data) ? res.data : []))
             .catch(() => setToast({ show: true, message: '❌ Gagal mengambil data barang.', variant: 'danger' }));
-        } else if (selectedMenu === 'tambah-barang') {
-        axios.get('http://localhost:8000/api/kategori', { headers })
-            .then(res => setKategoris(res.data));
-        axios.get('http://localhost:8000/api/penitips', { headers })
-            .then(res => setPenitips(res.data));
-        axios.get('http://localhost:8000/api/gudang', { headers })
-            .then(res => setGudangList(res.data));
         }
     }, [selectedMenu]);
 
@@ -102,7 +95,7 @@
     const renderContent = () => {
         switch (selectedMenu) {
         case 'barang-diambil':
-            return <BarangDiambil barangs={barangs} handleAmbil={() => { }} handleShowDetail={handleShowDetail} />;
+            return <BarangDiambil barangs={barangs} handleAmbil={() => {}} handleShowDetail={handleShowDetail} />;
         case 'barang-transaksi':
             return <BarangTransaksi barangs={barangs} handleShowDetail={handleShowDetail} />;
         case 'pengiriman':
@@ -111,8 +104,8 @@
             tanggalKirim, setTanggalKirim,
             selectedKurir, setSelectedKurir,
             kurirs, valid,
-            handleTanggalKirimChange: () => { },
-            handleSimpanJadwal: () => { },
+            handleTanggalKirimChange: () => {},
+            handleSimpanJadwal: () => {},
             errorMsg
             }} />;
         case 'pengambilan':
@@ -121,28 +114,22 @@
             tanggalAmbil, setTanggalAmbil,
             waktuAmbil, setWaktuAmbil,
             gudangList, selectedGudang, setSelectedGudang,
-            handleSimpanPengambilan: () => { },
+            handleSimpanPengambilan: () => {},
             errorMsg
             }} />;
         case 'jadwal':
             return <JadwalList {...{
             jadwalList,
-            handleUbahStatus: () => { },
-            handleKonfirmasiBerhasil: () => { },
-            handleKonfirmasiDiterima: () => { }
+            handleUbahStatus: () => {},
+            handleKonfirmasiBerhasil: () => {},
+            handleKonfirmasiDiterima: () => {}
             }} />;
         case 'nota-kurir':
-            return <NotaKurir onCetak={() => { }} />;
+            return <NotaKurir onCetak={() => {}} />;
         case 'nota-pembeli':
-            return <NotaPembeli onCetak={() => { }} />;
+            return <NotaPembeli onCetak={() => {}} />;
         case 'penitip-besar':
             return <PenitipBesar />;
-        case 'daftar-barang':
-            return <DaftarBarang />;
-        case 'tambah-barang':
-            return <TambahBarang kategoris={kategoris} penitips={penitips} gudangs={gudangList} setToast={setToast} />;
-        case 'nota-penitip':
-            return <NotaPenitipan />;
         default:
             return <p className="text-muted">Pilih menu di sidebar.</p>;
         }
@@ -162,9 +149,6 @@
                 {renderMenuItem('nota-pembeli', '🧾', 'Cetak Nota (Pembeli)')}
                 {renderMenuItem('jadwal', '📅', 'Lihat Jadwal')}
                 {renderMenuItem('penitip-besar', '💰', 'Penitip Saldo Besar')}
-                {renderMenuItem('daftar-barang', '📃', 'Daftar Barang')}
-                {renderMenuItem('tambah-barang', '➕', 'Tambah Barang')}
-                {renderMenuItem('nota-penitip', '🖨️', 'Nota Penitipan')}
             </Nav>
             </Col>
             <Col md={10} className="p-4 bg-light min-vh-100">
