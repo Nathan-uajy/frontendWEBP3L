@@ -12,9 +12,6 @@
     import JadwalList from "../components/gudang/JadwalList";
     import PenjadwalanPengambilan from "../components/gudang/PenjadwalanPengambilan";
     import PenitipBesar from "../components/gudang/PenitipBesar";
-    import DaftarBarang from "../components/gudang/DaftarBarang";
-    import TambahBarang from "../components/gudang/TambahBarang";
-    import NotaPenitipan from "../components/gudang/NotaPenitipan";
 
     const GudangDashboard = () => {
     const [barangs, setBarangs] = useState([]);
@@ -36,8 +33,6 @@
     const [errorMsg, setErrorMsg] = useState('');
 
     const [jadwalList, setJadwalList] = useState([]);
-    const [kategoris, setKategoris] = useState([]);
-    const [penitips, setPenitips] = useState([]);
 
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
@@ -175,3 +170,5 @@
     };
 
     export default GudangDashboard;
+
+
