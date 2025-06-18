@@ -25,7 +25,7 @@ const AdminDashboard = () => {
       })
       .catch((err) => {
         console.error('Gagal ambil data pegawai', err);
-        setError('Gagal ambil data pegawai. Token mungkin tidak valid atau expired.');
+        setError('❌ Gagal ambil data pegawai. Token mungkin tidak valid atau expired.');
       });
   }, []);
 
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
 
         <Card className="p-4 flex flex-col items-center gap-3 shadow-md w-64">
           <h2 className="text-lg font-medium text-gray-700">Tambah Organisasi</h2>
-          <Button onClick={() => navigate('/organisasi')}>Pilih</Button>
+          <Button onClick={() => navigate('/tambah-organisasi')}>Pilih</Button>
         </Card>
       </div>
 
